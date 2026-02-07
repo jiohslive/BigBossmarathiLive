@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Big Boss Marathi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#000;
+  font-family:'Inter',sans-serif;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* HEADER */
+.top-bar{
+  width:94%;
+  max-width:420px;
+  margin:12px auto;
+  background:#1c1c1c;
+  border-radius:14px;
+  padding:12px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.title{font-size:20px;font-weight:800}
+
+/* LIVE BADGE */
+.live-badge{
+  background:#e50914;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  animation:pulse 1.4s infinite;
+}
+.live-dot{
+  width:8px;
+  height:8px;
+  background:#fff;
+  border-radius:50%;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{50%{opacity:.3}}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(229,9,20,.7);}
+  70%{box-shadow:0 0 0 10px rgba(229,9,20,0);}
+  100%{box-shadow:0 0 0 0 rgba(229,9,20,0);}
+}
+
+/* VIDEO */
+.video-wrap{
+  width:94%;
+  max-width:420px;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  overflow:hidden;
+  border:2px solid #00e5ff;
+  box-shadow:0 0 12px rgba(0,229,255,.3);
+  position:relative;
+}
+iframe{width:100%;height:100%;border:none}
+
+/* ENDED SCREEN */
+#endedScreen{
+  position:absolute;
+  inset:0;
+  background:#000;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:16px;
+}
+
+/* TEXT */
+.ended-title{
+  font-family:'Poppins',sans-serif;
+  font-size:26px;
+  font-weight:900;
+  color:#ff3b3b;
+}
+.next-live-text{
+  font-family:'Poppins',sans-serif;
+  font-size:15px;
+  font-weight:600;
+  color:#bdbdbd;
+  margin-top:6px;
+}
+#countdown{
+  font-family:'Poppins',sans-serif;
+  font-size:26px;
+  font-weight:800;
+  padding:10px 20px;
+  border-radius:12px;
+  background:#111;
+  color:#00e5ff;
+  border:1px solid #00e5ff;
+  margin:10px 0;
+}
+.episode-time{
+  font-family:'Poppins',sans-serif;
+  font-size:13px;
+  color:#9e9e9e;
+}
+
+/* CARDS */
+.card{
+  width:94%;
+  max-width:400px;
+  margin-top:14px;
+  padding:14px;
+  border-radius:18px;
+  background:rgba(28,28,28,.65);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.08);
+}
+.card-title{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+.action-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:linear-gradient(90deg,#00f5ff,#00c9ff);
+  color:#002b36;
+  padding:12px;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+}
+.info-text{
+  text-align:center;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+/* FOOTER */
+.footer{
+  width:100%;
+  margin-top:22px;
+  padding:18px 14px;
+  background:#0b0b0b;
+  border-top:1px solid rgba(255,255,255,.08);
+  text-align:center;
+}
+.footer-title{
+  font-size:13px;
+  font-weight:700;
+  color:#ffffff;
+  margin-bottom:8px;
+  font-family:'Poppins',sans-serif;
+}
+.footer-text{
+  font-size:11.5px;
+  line-height:1.6;
+  color:#9e9e9e;
+  margin-bottom:6px;
+}
+.footer-small{
+  font-size:10.5px;
+  opacity:.85;
+}
+.footer-links{
+  margin-top:10px;
+  font-size:11px;
+}
+.footer-links a{
+  color:#00e5ff;
+  text-decoration:none;
+  font-weight:600;
+}
+.footer-links span{
+  margin:0 6px;
+  color:#555;
+}
+
+/* ===== CUSTOM COPY ALERT (ADDED ONLY) ===== */
+#copyToast{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:#111;
+  color:#00e5ff;
+  padding:12px 18px;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid #00e5ff;
+  box-shadow:0 0 14px rgba(0,229,255,.35);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s ease;
+  z-index:9999;
+}
+#copyToast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+  <div class="title">Big Boss Marathi</div>
+  <div class="live-badge"><div class="live-dot"></div> LIVE</div>
+</div>
+
+<div class="video-wrap">
+  <iframe id="liveFrame"
+    src="https://www.youtube.com/embed/AtB3KjhjvUY?autoplay=1&mute=1&playsinline=1&controls=1"
+    allow="autoplay; encrypted-media" allowfullscreen>
+  </iframe>
+
+  <div id="endedScreen">
+    <div class="ended-title">LIVE STREAM ENDED</div>
+    <div class="next-live-text">Next Live Starts In</div>
+    <div id="countdown"></div>
+    <div class="episode-time">New Episode Daily at 8:00 PM</div>
+  </div>
+</div>
+
+<div class="card" id="unmuteCard" style="display:none;">
+  <div class="action-btn" onclick="unmuteLive()">
+    <i class="fa-solid fa-volume-high"></i> Tap to Unmute Live Stream
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="fa-solid fa-bell"></i> Follow For Daily Updates & Live Links</div>
+  <a class="action-btn" href="https://t.me/+-S5EEjy6pDc3Njc9">
+    <i class="fa-brands fa-telegram"></i> Join Telegram
+  </a>
+</div>
+
+<div class="card">
+  <div class="card-title"><i class="fa-solid fa-share-nodes"></i> Copy & Share This Page Link</div>
+  <div class="action-btn" onclick="copyLink()">
+    <i class="fa-solid fa-link"></i> Click here To Share This Page Link
+  </div>
+</div>
+
+<div class="card">
+  <div class="info-text">Missed Episodes & Links on Telegram</div>
+  <a class="action-btn" href="https://t.me/+-S5EEjy6pDc3Njc9">
+    <i class="fa-brands fa-telegram"></i> Click here to join
+  </a>
+</div>
+
+<footer class="footer">
+  <div class="footer-title">© 2026 Big Boss Marathi – Fan Platform</div>
+  <div class="footer-text">
+    This website is a fan-made platform. We do not host or own any video content.
+    All streams are embedded from publicly available sources.
+  </div>
+  <div class="footer-text footer-small">
+    All trademarks and content belong to their respective owners.
+    Contact us for copyright removal.
+  </div>
+  <div class="footer-links">
+    <a href="https://t.me/+-S5EEjy6pDc3Njc9">Telegram</a>
+    <span>•</span>
+    <a href="#">Privacy</a>
+    <span>•</span>
+    <a href="#">DMCA</a>
+  </div>
+</footer>
+
+<!-- CUSTOM TOAST (ADDED ONLY) -->
+<div id="copyToast">
+  <i class="fa-solid fa-circle-check"></i> Link copied
+</div>
+
+<script>
+let countdownInterval=null;
+
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href);
+  const toast=document.getElementById("copyToast");
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),2000);
+}
+
+function unmuteLive(){
+  const iframe=document.getElementById("liveFrame");
+  iframe.src=iframe.src.replace("mute=1","mute=0");
+}
+
+function checkLiveStatus(){
+  const now=new Date();
+  const liveStart=new Date(); liveStart.setHours(20,0,0,0);
+  const liveEnd=new Date(); liveEnd.setHours(21,19,0,0);
+
+  const iframe=document.getElementById("liveFrame");
+  const ended=document.getElementById("endedScreen");
+  const unmute=document.getElementById("unmuteCard");
+
+  if(now>=liveStart && now<liveEnd){
+    iframe.style.display="block";
+    ended.style.display="none";
+    unmute.style.display="block";
+    if(countdownInterval){clearInterval(countdownInterval);countdownInterval=null;}
+  }else{
+    iframe.style.display="none";
+    ended.style.display="flex";
+    unmute.style.display="none";
+    let nextLive=new Date(liveStart);
+    if(now>liveEnd){nextLive.setDate(nextLive.getDate()+1);}
+    if(!countdownInterval){startCountdown(nextLive);}
+  }
+}
+
+function startCountdown(target){
+  countdownInterval=setInterval(()=>{
+    const diff=target-new Date();
+    if(diff<=0){checkLiveStatus();return;}
+    const h=Math.floor(diff/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
+    document.getElementById("countdown").innerText=`${h}h ${m}m ${s}s`;
+  },1000);
+}
+
+checkLiveStatus();
+setInterval(checkLiveStatus,60000);
+</script>
+
+</body>
+</html>
